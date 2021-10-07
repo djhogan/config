@@ -1,10 +1,15 @@
 set nocompatible
-set foldmethod=indent
+set hidden
 
 """ backspace, tabs, and indentation
 set backspace=indent,eol,start
 set ai et sw=4 ts=4
 set softtabstop=4
+"""
+
+"""
+set foldmethod=indent
+set foldlevel=1
 """
 
 """ QoL
@@ -32,7 +37,15 @@ call plug#end()
 set bg=dark
 colorscheme gruvbox
 set cursorline
-        
+
+augroup vimrc_python
+    autocmd!
+    autocmd FileType python nnoremap <buffer> <C-P> zk
+    autocmd FileType python nnoremap <buffer> <C-N> zj
+    autocmd FileType python nnoremap <buffer> <C-]> :LspReferences<CR>
+augroup end
+
+
 if executable('pyls')
     " pip install python-language-server
     au User lsp_setup call lsp#register_server({
